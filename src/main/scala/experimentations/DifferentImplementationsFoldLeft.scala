@@ -1,4 +1,4 @@
-import javax.swing.text.Segment
+package experimentations
 
 /**
   * Created by Florian on 04/03/16.

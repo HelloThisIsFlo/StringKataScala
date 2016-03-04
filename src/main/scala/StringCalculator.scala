@@ -11,7 +11,7 @@ class StringCalculator {
   }
 
   def addNotEmpty(toAdd: String): Int = {
-    val segments = toAdd.split(",")
+    val segments = toAdd.split(makeSplitRegex())
     segments.foldLeft(0)((acc, current) => acc + tryToParseToInt(current))
   }
 
@@ -19,9 +19,14 @@ class StringCalculator {
     val parsedInt = Try(toParse.toInt)
     parsedInt match {
       case Success(int) => int
-      case Failure(msg) => throw WrongFormatException(msg.getMessage)
+      case Failure(msg) => throw new WrongFormatException(s"Impossible to parse $toParse")
     }
+  }
+
+  def makeSplitRegex(): String = {
+    "[,\\n]"
   }
 }
 
-case class WrongFormatException(msg: String) extends Exception
+class WrongFormatException(message: String) extends Exception(message)
+

@@ -35,4 +35,18 @@ class StringCalculatorTest extends FunSuite with BeforeAndAfter{
       calculator.add(wrongFormat)
     }
   }
+
+  test("New line delimiter -> Returns Sum") {
+    val numbersWithNewLineDelimiter = "213,44\n11,5\n566\n1"
+
+    val result = calculator.add(numbersWithNewLineDelimiter)
+    assert(213 + 44 + 11 + 5 + 566 + 1 == result)
+  }
+
+  test("Custom delimiter -> Detects the delimiter and returns Sum") {
+    val numbersWithCustomDelimiter = "//d\n13d2,45\n454d3"
+
+    val result = calculator.add(numbersWithCustomDelimiter)
+    assert(13 + 2 + 45 + 454 + 3 == result)
+  }
 }

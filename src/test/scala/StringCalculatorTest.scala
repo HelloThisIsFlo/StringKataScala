@@ -29,7 +29,7 @@ class StringCalculatorTest extends FunSuite with BeforeAndAfter{
     assert(12 + 44 + 553 == result)
   }
 
-  test("Wrong input -> Exception") {
+  test("Wrong input -> Exception") { //todo might wanna do with Option or Either
     val wrongFormat = "12,dd,45"
     intercept[WrongFormatException] {
       calculator.add(wrongFormat)

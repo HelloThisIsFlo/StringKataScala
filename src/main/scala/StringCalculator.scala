@@ -1,3 +1,5 @@
+import scala.util.{Failure, Success, Try}
+
 class StringCalculator {
 
   def add(toAdd: String): Int = {
@@ -10,12 +12,16 @@ class StringCalculator {
 
   def addNotEmpty(toAdd: String): Int = {
     val segments = toAdd.split(",")
-    segments.foldLeft(0)(_.toInt + _)
-//    segments.foldLeft(0)(_ + _.toInt)
+    segments.foldLeft(0)((acc, current) => acc + tryToParseToInt(current))
   }
 
-
-
+  def tryToParseToInt(toParse: String): Int = {
+    val parsedInt = Try(toParse.toInt)
+    parsedInt match {
+      case Success(int) => int
+      case Failure(msg) => throw WrongFormatException(msg.getMessage)
+    }
+  }
 }
 
-class WrongFormatException extends Exception
+case class WrongFormatException(msg: String) extends Exception
